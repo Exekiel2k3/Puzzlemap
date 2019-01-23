@@ -14,7 +14,7 @@ import java.util.Random;
  */
 public class PuzzleMap {
 
-    private String[] alf = {"A", "B", "C", "D", "E", "F", "G", "H", "I", 
+    private String[] alf = {"AAAAA", "B", "C", "D", "E", "F", "G", "H", "I", 
                             "J", "K", "L", "M", "N", "Ñ", "O", "P", "Q", 
                             "R", "S", "T", "U", "V", "W", "X", "Y", "Z" };
     private Random random = new Random(System.currentTimeMillis());
