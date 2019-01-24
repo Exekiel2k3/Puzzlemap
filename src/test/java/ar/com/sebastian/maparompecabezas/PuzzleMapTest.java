@@ -24,6 +24,7 @@ public class PuzzleMapTest {
         pm1 = new PuzzleMap();
         pm2 = new PuzzleMap(30, 20);
         pm3 = new PuzzleMap(2, 3);
+        pm3.setLengthCode(2);
     }
     
     public PuzzleMapTest() {
@@ -31,12 +32,16 @@ public class PuzzleMapTest {
     
     @Test
     public void testPuzzleMapContructor1(){
-        assertTrue((pm1.getColumns()==0) && (pm1.getRows()==0));
+        assertTrue( (pm1.getColumns()==0) && 
+                    (pm1.getRows()==0) && 
+                    (pm1.getLengthCode()==0));
     }
     
     @Test
     public void testPuzzleMapContructor2(){
-        assertTrue((pm2.getColumns()==20) && (pm2.getRows()==30));
+        assertTrue( (pm2.getColumns()==20) && 
+                    (pm2.getRows()==30) &&
+                    (pm2.getLengthCode()==0));
     }
 
     @Test
@@ -50,6 +55,7 @@ public class PuzzleMapTest {
         pm1.setColumns(33);
         assertEquals(null, 33, pm1.getColumns());
     }    
+	
     @Test
     public void testGetRows() {
         assertEquals(null, 30, pm2.getRows());
@@ -60,6 +66,17 @@ public class PuzzleMapTest {
         assertEquals(null, 20, pm2.getColumns());
     }
     
+    @Test
+    public void testSetLengthCode() {
+        pm1.setLengthCode(2);
+        assertEquals(null, 2, pm1.getLengthCode());
+    }    
+	
+    @Test
+    public void testGetLengthCode() {
+        assertEquals(null, 0, pm2.getLengthCode());
+    }
+	
     @Test
     public void testCreateMap(){
         ArrayList<ArrayList<String>> map = pm3.create();

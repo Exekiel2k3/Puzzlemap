@@ -14,18 +14,17 @@ import java.util.Random;
  */
 public class PuzzleMap {
 
-    private String[] alf = {"AAAAA", "B", "C", "D", "E", "F", "G", "H", "I", 
-                            "J", "K", "L", "M", "N", "Ñ", "O", "P", "Q", 
-                            "R", "S", "T", "U", "V", "W", "X", "Y", "Z" };
     private Random random = new Random(System.currentTimeMillis());
     private ArrayList<String> codes = new ArrayList<String>();
     
     private int rows;
     private int columns;
+    private int lengthCode;
 
     public PuzzleMap() {
         this.rows = 0;
         this.columns = 0;
+	this.lengthCode = 0;
     }
     
     public PuzzleMap(int rows, int columns) {
@@ -40,6 +39,10 @@ public class PuzzleMap {
     public int getRows() {
         return rows;
     }
+	
+    public int getLengthCode() {
+        return lengthCode;
+    }
 
     public void setRows(int rows) {
         this.rows = rows;
@@ -48,28 +51,29 @@ public class PuzzleMap {
     public void setColumns(int columns) {
         this.columns = columns;
     }
-        
+    
+    public void setLengthCode(int lengthCode) {
+        this.lengthCode = lengthCode;
+    }
+       
     private String generateNewCode(){
-                
-        String code;
-        do {            
-        String letra = alf[random.nextInt(27)]; 
-        String number = String.format("%02d",(int) random.nextInt(50));
-        code = "";
-        int order = (int) random.nextInt(3);
-        
-        switch (order){
-            case 0: code = letra + number;
-                break;
-            case 1: code = "0" + letra + letra;
-                break;                
-            case 2: code = number + letra;
-                break;                        
-        }  
 
+        if(this.lengthCode==0){
+            return "";
+        }
+        
+        String code;
+        do {
+            code = "";
+            for(int i=0; i<this.lengthCode; i++){
+                int auxRand = random.nextInt(25);
+                char aux[] = Character.toChars( 65 + auxRand);
+                code = code.concat(new String(aux));
+            }
+			
         } while (codes.contains(code));
         codes.add(code);
-            return code;
+        return code;
     }
     
     public ArrayList<ArrayList<String>> create(){
@@ -79,7 +83,7 @@ public class PuzzleMap {
         
         for(int i=0; i<rows; i++){//Rows
             for(int j=0; j<columns; j++){//Columns
-                inner.add(j, generateNewCode());
+		inner.add(j, generateNewCode());
             }
             outer.add(i, new ArrayList<>(inner));
             inner.clear();
@@ -87,19 +91,40 @@ public class PuzzleMap {
         
         return outer;        
     }
+	
+//	@Override
+//	public String toString(){
+//		
+//		String map = "";
+//		
+//		for(int i=0; i<rows; i++){//Rows
+//            for(int j=0; j<columns; j++){//Columns
+//				inner.add(j, generateNewCode2());
+//            }
+//            outer.add(i, new ArrayList<>(inner));
+//            inner.clear();
+//        }
+//		
+//		return 	"rows: " + rows + "\n" +
+//				"columns: " + columns "\n" +
+//				"lengthCode: " + lengthCode + "\n" +
+//				
+//	
+//	}
     
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        
+               
 //        PuzzleMap puzzleMap = new PuzzleMap(28,36);
+//        puzzleMap.setLengthCode(2);
 //        
 //        for(int i=0; i<puzzleMap.rows; i++){//Rows
 //            for(int j=0; j<puzzleMap.columns; j++){//Columns
 //
-//                System.out.print( puzzleMap.generateNewCode() + "|");
+//                System.out.print( puzzleMap.generateNewCode2() + "|");
 //            }
 //            System.out.println();
 //        }
